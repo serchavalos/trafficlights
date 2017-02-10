@@ -48,4 +48,4 @@ TrafficLight.COLORS = {
   RED: 'red',
 }
 
-module.exports = trafficeLight;
+module.exports = TrafficLight;
