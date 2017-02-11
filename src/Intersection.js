@@ -27,7 +27,7 @@ class Intersection {
 
     this.positions = [];
     this._initPositions();
-  };
+  }
 
   /**
    * Render the traffic lights
@@ -38,7 +38,7 @@ class Intersection {
     this.lights.forEach((light, index) => {
       light.render(...this.positions[index], this.ctx);
     });
-  };
+  }
 
   /**
    * Initialize the positions of the traffic lights in the intersection
@@ -57,6 +57,6 @@ class Intersection {
       [15, (height/2) - 35]
     ];
   }
-};
+}
 
 module.exports = Intersection;

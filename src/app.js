@@ -1,11 +1,4 @@
-/**
- * TODO:
- *  - Start adding unit test. That will give you feedback on how your app looks like
- *  So far our strategy:
- *  - Create a renderer class that will draw the traffic lights
- *  - Intersection will receive the size of the canvas and the lights. It will then take care of the positions
- */
-
+/* global TrafficLight Intersection */
 window.onload = function() {
   const north = new TrafficLight();
   const west = new TrafficLight();
@@ -26,7 +19,7 @@ window.onload = function() {
   south.setOnGreen();
 
   (function draw() {
-    intersection.render()
+    intersection.render();
 
     window.requestAnimationFrame(draw);
   })();

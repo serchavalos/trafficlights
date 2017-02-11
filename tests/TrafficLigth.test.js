@@ -1,3 +1,6 @@
+/* global describe before after it */
+/* eslint-disable no-global-assign */
+
 const assert = require('assert');
 const TrafficLight = require('../src/TrafficLight.js');
 

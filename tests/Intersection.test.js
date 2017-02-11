@@ -1,3 +1,6 @@
+/* global describe setTimeout it */
+/* eslint-disable no-unused-vars */
+
 const assert = require('assert');
 const Intersection = require('../src/Intersection.js');
 const TrafficLight = require('../src/TrafficLight');
@@ -20,7 +23,7 @@ describe('Intersection', () => {
       ];
 
       try {
-        const intersection = new Intersection(canvasMock, wrongLights);
+        let intersection = new Intersection(canvasMock, wrongLights);
       } catch (ex) {
         wasExceptionThrown = true;
       }
@@ -34,7 +37,7 @@ describe('Intersection', () => {
       const wrongLights = [new TrafficLight(), new TrafficLight(), new TrafficLight()];
 
       try {
-        const intersection = new Intersection(canvasMock, wrongLights);
+        let intersection = new Intersection(canvasMock, wrongLights);
       } catch (ex) {
         wasExceptionThrown = true;
       }
