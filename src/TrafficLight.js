@@ -30,11 +30,31 @@ class TrafficLight {
     this._setNextTrafficLightOnGreen();
   }
 
-  render(coordX, coordY, canvas) {
-      canvas.beginPath();
-      canvas.arc(coordX, coordY, 10, 0,  2 * Math.PI, true);
-      canvas.fillStyle = this.currentColor;
-      canvas.fill();
+  render(coordX, coordY, context) {
+      context.lineWidth = 2;
+      context.strokeStyle = '#333';
+
+      context.beginPath();
+      context.arc(coordX, coordY, 10, 0,  2 * Math.PI, true);
+      context.stroke();
+      context.fillStyle = this.currentColor == TrafficLight.COLORS.GREEN ? TrafficLight.COLORS.GREEN : TrafficLight.COLORS.GRAY;
+      context.fill();
+
+      context.beginPath();
+      context.moveTo(coordX, coordY + 25);
+      context.arc(coordX, coordY + 25, 10, 0,  2 * Math.PI, true);
+      context.stroke();
+      context.fillStyle = this.currentColor == TrafficLight.COLORS.YELLOW ? TrafficLight.COLORS.YELLOW : TrafficLight.COLORS.GRAY;
+      context.fill();
+
+      context.beginPath();
+      context.moveTo(coordX, coordY + 50);
+      context.arc(coordX, coordY + 50, 10, 0,  2 * Math.PI, true);
+      context.stroke();
+      context.fillStyle = this.currentColor == TrafficLight.COLORS.RED ? TrafficLight.COLORS.RED : TrafficLight.COLORS.GRAY;
+      context.fill();
+
+      context.closePath();
   }
 
   _setNextTrafficLightOnGreen() {
@@ -46,6 +66,7 @@ TrafficLight.COLORS = {
   GREEN: 'green',
   YELLOW: 'yellow',
   RED: 'red',
+  GRAY: '#aaaaaa',
 }
 
 module.exports = TrafficLight;

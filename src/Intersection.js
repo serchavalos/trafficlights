@@ -16,7 +16,7 @@ class Intersection {
   };
 
   render() {
-    this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.lights.forEach((light, index) => {
       light.render(...this.positions[index], this.ctx);
@@ -29,10 +29,10 @@ class Intersection {
 
     this.positions = [
       // [coordX, coordY]
-      [(width/2), 0],
-      [(width), (height/2)],
-      [(width/2), height],
-      [0, (height/2)]
+      [(width/2), 15],
+      [width - 15, (height/2) - 35],
+      [(width/2), height - 70],
+      [15, (height/2) - 35]
     ];
   }
 };
