@@ -3,36 +3,64 @@ const TrafficLight = require('../src/TrafficLight.js');
 
 describe('TrafficLight', () => {
   const trafficLight = new TrafficLight();
+  let timeLimit, setNextLightCallback, backupTimeoutFunction;
+
+  before(() => {
+    backupTimeoutFunction = setTimeout;
+    // Add a spy on "setTimeout" function to make sure it will
+    // execute the next light
+    setTimeout = (inputCallback, inputTime) => {
+      setNextLightCallback = inputCallback;
+      timeLimit = inputTime;
+    }
+  });
+
+  after(() => {
+    setTimeout = backupTimeoutFunction;
+  });
 
   describe('#setOnGreen', () => {
-    let timeLimit, timeoutCallback, backupSteTimeout;
-
-    before(() => {
-      backupSteTimeout = setTimeout;
-      setTimeout = (inputCallback, inputTime) => {
-        timeoutCallback = inputCallback;
-        timeLimit = inputTime;
-      }
-
+    it('should set current light on green and set the proper timing and callback', () => {
       trafficLight.setOnGreen();
-    });
 
-    after(() => {
-      setTimeout = backupSteTimeout;
-    });
-
-    it('should set current color on green', () => {
       assert.equal(trafficLight.currentColor, TrafficLight.COLORS.GREEN);
-    });
-
-    it('should set a timeout with the proper timing', () => {
-      assert.equal(typeof timeoutCallback, 'function');
+      assert.equal(typeof setNextLightCallback, 'function');
       assert.equal(timeLimit, 8000);
     });
 
-    it('should make the callback be the next color in place', () => {
-      timeoutCallback.call(trafficLight);
+    it('should turn to yellow when the previous callback is executed', () => {
+      setNextLightCallback.call(trafficLight);
+
       assert.equal(trafficLight.currentColor, TrafficLight.COLORS.YELLOW);
+      assert.equal(typeof setNextLightCallback, 'function');
+      assert.equal(timeLimit, 3000);
+    });
+  });
+
+  describe('#setNextLight', () => {
+    it('should turn back to red and turn the next light green', () => {
+      let nextLight = new TrafficLight();
+      trafficLight.setNextLight(nextLight);
+      setNextLightCallback.call(trafficLight);
+
+      assert.equal(trafficLight.currentColor, TrafficLight.COLORS.RED);
+      assert.equal(typeof setNextLightCallback, 'function');
+      assert.equal(timeLimit, 8000);
+      assert.equal(nextLight.currentColor, TrafficLight.COLORS.GREEN);
+    });
+
+    it('should throw an exception when a wrong object is passed', () => {
+      let wrongLight = new Object();
+      let wasExceptionThrown = false;
+      let trafficLight = new TrafficLight();
+
+      try {
+        trafficLight.setNextLight(wrongLight);
+      } catch (ex) {
+        wasExceptionThrown = true;
+      }
+
+      assert.ok(wasExceptionThrown);
     });
   });
 });
