@@ -46,7 +46,7 @@ describe('#TrafficLightRenderer', () => {
       };
 
       renderer.setContext(mockContext);
-      renderer.render(new TrafficLight(), 100, 100);
+      renderer.render(new TrafficLight(), [100, 100]);
     });
   });
 });

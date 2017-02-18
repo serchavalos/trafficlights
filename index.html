@@ -3,9 +3,19 @@
   <head>
     <title>Traffic Lights</title>
     <style>
-      canvas { border: 1px solid black; }
+      .container {
+        position: relative;
+      }
+      #canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     </style>
   </head>
-  <canvas id="canvas" height="400px" width="500px"></canvas>
+  <div class="container">
+    <img src="https://thumb1.shutterstock.com/display_pic_with_logo/299362/133888343/stock-vector-crossing-roads-road-intersection-with-pedestrian-crossings-133888343.jpg" />
+    <canvas id="canvas" height="450px" width="440px"></canvas>
+  </div>
   <script src="./bundle.js"></script>
 </html>
