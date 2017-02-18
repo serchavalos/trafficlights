@@ -1,3 +1,4 @@
+const constants = require('./constants.js');
 const TrafficLight = require('./TrafficLight.js');
 
 class TrafficLightRenderer {
@@ -33,21 +34,21 @@ class TrafficLightRenderer {
     this.context.beginPath();
     this.context.arc(coordX, coordY, 10, 0,  2 * Math.PI);
     this.context.stroke();
-    this.context.fillStyle = color == TrafficLight.COLORS.GREEN ? TrafficLight.COLORS.GREEN : TrafficLight.COLORS.GRAY;
+    this.context.fillStyle = color == constants.COLORS.GREEN ? constants.COLORS.GREEN : constants.COLORS.GRAY;
     this.context.fill();
 
     this.context.beginPath();
     this.context.moveTo(coordX, coordY + 25);
     this.context.arc(coordX, coordY + 25, 10, 0,  2 * Math.PI);
     this.context.stroke();
-    this.context.fillStyle = color == TrafficLight.COLORS.YELLOW ? TrafficLight.COLORS.YELLOW : TrafficLight.COLORS.GRAY;
+    this.context.fillStyle = color == constants.COLORS.YELLOW ? constants.COLORS.YELLOW : constants.COLORS.GRAY;
     this.context.fill();
 
     this.context.beginPath();
     this.context.moveTo(coordX, coordY + 50);
     this.context.arc(coordX, coordY + 50, 10, 0,  2 * Math.PI);
     this.context.stroke();
-    this.context.fillStyle = color == TrafficLight.COLORS.RED ? TrafficLight.COLORS.RED : TrafficLight.COLORS.GRAY;
+    this.context.fillStyle = color == constants.COLORS.RED ? constants.COLORS.RED : constants.COLORS.GRAY;
     this.context.fill();
 
     this.context.closePath();

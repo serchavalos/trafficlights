@@ -1,3 +1,5 @@
+const constants = require('./constants.js');
+
 /**
  * @class TrafficLight
  */
@@ -6,7 +8,7 @@ class TrafficLight {
    * Inits the traffic light setting a cyclic link
    */
   constructor() {
-    this.currentColor = TrafficLight.COLORS.RED;
+    this.currentColor = constants.COLORS.RED;
     // Indicates the next traffic light.
     this.nextLight = this;
   }
@@ -26,10 +28,10 @@ class TrafficLight {
    * Turn the green light on green and sets the timer
    */
   setOnGreen() {
-    this.currentColor = TrafficLight.COLORS.GREEN;
+    this.currentColor = constants.COLORS.GREEN;
     setTimeout(() => {
       this._setOnYellow();
-    }, 8000);
+    }, constants.TIMEOUT.GREEN);
   }
 
   /**
@@ -44,10 +46,10 @@ class TrafficLight {
    * @private
    */
   _setOnYellow() {
-    this.currentColor = TrafficLight.COLORS.YELLOW;
+    this.currentColor = constants.COLORS.YELLOW;
     setTimeout(() => {
       this._setOnRed();
-    }, 3000);
+    }, constants.TIMEOUT.YELLOW);
   }
 
   /**
@@ -55,16 +57,9 @@ class TrafficLight {
    * @private
    */
   _setOnRed() {
-    this.currentColor = TrafficLight.COLORS.RED;
+    this.currentColor = constants.COLORS.RED;
     this.nextLight.setOnGreen();
   }
-}
-
-TrafficLight.COLORS = {
-  GREEN: 'green',
-  YELLOW: 'yellow',
-  RED: 'red',
-  GRAY: '#aaaaaa',
 }
 
 module.exports = TrafficLight;

@@ -2,6 +2,7 @@
 /* eslint-disable no-global-assign */
 
 const assert = require('assert');
+const constants = require('../src/constants.js');
 const TrafficLight = require('../src/TrafficLight.js');
 
 describe('TrafficLight', () => {
@@ -26,7 +27,7 @@ describe('TrafficLight', () => {
     it('should set current light on green and set the proper timing and callback', () => {
       trafficLight.setOnGreen();
 
-      assert.equal(trafficLight.currentColor, TrafficLight.COLORS.GREEN);
+      assert.equal(trafficLight.currentColor, constants.COLORS.GREEN);
       assert.equal(typeof setNextLightCallback, 'function');
       assert.equal(timeLimit, 8000);
     });
@@ -34,7 +35,7 @@ describe('TrafficLight', () => {
     it('should turn to yellow when the previous callback is executed', () => {
       setNextLightCallback.call(trafficLight);
 
-      assert.equal(trafficLight.currentColor, TrafficLight.COLORS.YELLOW);
+      assert.equal(trafficLight.currentColor, constants.COLORS.YELLOW);
       assert.equal(typeof setNextLightCallback, 'function');
       assert.equal(timeLimit, 3000);
     });
@@ -46,10 +47,10 @@ describe('TrafficLight', () => {
       trafficLight.setNextLight(nextLight);
       setNextLightCallback.call(trafficLight);
 
-      assert.equal(trafficLight.currentColor, TrafficLight.COLORS.RED);
+      assert.equal(trafficLight.currentColor, constants.COLORS.RED);
       assert.equal(typeof setNextLightCallback, 'function');
       assert.equal(timeLimit, 8000);
-      assert.equal(nextLight.currentColor, TrafficLight.COLORS.GREEN);
+      assert.equal(nextLight.currentColor, constants.COLORS.GREEN);
     });
 
     it('should throw an exception when a wrong object is passed', () => {
