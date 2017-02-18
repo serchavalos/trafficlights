@@ -12,9 +12,9 @@ fs.readdir(srcPath, (err, files) => {
 
   let content = files.reduce((acc, file) => {
     let jsCode = fs.readFileSync(srcPath + file, 'utf-8');
-    // Removes require and import
-    jsCode = jsCode.replace(/module\.exports\s+=\s+\w+;/, '');
-    jsCode = jsCode.replace(/const\s+\w+\s+=\s+require\([^)]+\);/, '');
+    // Removes require
+    jsCode = jsCode.replace(/module\.exports\s+=\s+\w+;/g, '');
+    jsCode = jsCode.replace(/const\s+\w+\s+=\s+require\([^)]+\);/g, '');
 
     return acc + jsCode;
   }, '');
