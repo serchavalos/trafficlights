@@ -16,8 +16,8 @@ window.onload = function() {
   const intersection = new IntersectionRenderer(canvas, [north, west, south, east], trafficLightRenderer);
 
   // Start sequence
-  north.setOnGreen();
-  south.setOnGreen();
+  north.startSequence();
+  south.startSequence();
 
   (function draw() {
     intersection.render();

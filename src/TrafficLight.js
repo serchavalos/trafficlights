@@ -8,7 +8,7 @@ class TrafficLight {
    * Inits the traffic light setting a cyclic link
    */
   constructor() {
-    this.currentColor = constants.COLORS.RED;
+    this.state = constants.STATE.RED;
     // Indicates the next traffic light.
     this.nextLight = this;
   }
@@ -25,20 +25,35 @@ class TrafficLight {
   }
 
   /**
-   * Turn the green light on green and sets the timer
+   * Sets the light on green and starts the timeout for the next state
    */
-  setOnGreen() {
-    this.currentColor = constants.COLORS.GREEN;
-    setTimeout(() => {
-      this._setOnYellow();
-    }, constants.TIMEOUT.GREEN);
+  startSequence() {
+    this._setOnGreen();
   }
 
   /**
    * @return {string}
    */
-  getColor() {
-    return this.currentColor;
+  getState() {
+    return this.state;
+  }
+
+  /**
+   * Turn the green light on green and sets the timer
+   * @private
+   */
+  _setOnGreen() {
+    this.state = constants.STATE.GREEN;
+    setTimeout(this._setOnTurnLeft.bind(this), constants.TIMEOUT.GREEN);
+  }
+
+  /**
+   * Turn the green light on green and sets the timer
+   * @private
+   */
+  _setOnTurnLeft() {
+    this.state = constants.STATE.TURN_LEFT;
+    setTimeout(this._setOnYellow.bind(this), constants.TIMEOUT.TURN_LEFT);
   }
 
   /**
@@ -46,10 +61,8 @@ class TrafficLight {
    * @private
    */
   _setOnYellow() {
-    this.currentColor = constants.COLORS.YELLOW;
-    setTimeout(() => {
-      this._setOnRed();
-    }, constants.TIMEOUT.YELLOW);
+    this.state = constants.STATE.YELLOW;
+    setTimeout(this._setOnRed.bind(this), constants.TIMEOUT.YELLOW);
   }
 
   /**
@@ -57,8 +70,8 @@ class TrafficLight {
    * @private
    */
   _setOnRed() {
-    this.currentColor = constants.COLORS.RED;
-    this.nextLight.setOnGreen();
+    this.state = constants.STATE.RED;
+    this.nextLight.startSequence();
   }
 }
 

@@ -60,7 +60,7 @@ class IntersectionRenderer {
       // [coordX, coordY]
       [(width/2), 12],
       [width - 15, (height/2) - 35],
-      [(width/2), height - 70],
+      [(width/2), height - 95],
       [15, (height/2) - 35]
     ];
   }

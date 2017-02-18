@@ -42,6 +42,7 @@ describe('#TrafficLightRenderer', () => {
         stroke: () => {},
         fill: () => {},
         closePath: () => {},
+        fillText: () => {},
       };
 
       renderer.setContext(mockContext);
