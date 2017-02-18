@@ -1,4 +1,4 @@
-/* global TrafficLight Intersection */
+/* global TrafficLight TrafficLightRenderer IntersectionRenderer */
 window.onload = function() {
   const north = new TrafficLight();
   const west = new TrafficLight();
@@ -12,7 +12,8 @@ window.onload = function() {
   east.setNextLight(north);
 
   const canvas = document.getElementById('canvas');
-  const intersection = new Intersection(canvas, [north, west, south, east]);
+  const trafficLightRenderer = new TrafficLightRenderer();
+  const intersection = new IntersectionRenderer(canvas, [north, west, south, east], trafficLightRenderer);
 
   // Start sequence
   north.setOnGreen();

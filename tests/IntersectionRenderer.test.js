@@ -2,11 +2,11 @@
 /* eslint-disable no-unused-vars */
 
 const assert = require('assert');
-const Intersection = require('../src/Intersection.js');
+const IntersectionRenderer = require('../src/IntersectionRenderer.js');
 const TrafficLight = require('../src/TrafficLight');
+const TrafficLightRenderer = require('../src/TrafficLightRenderer');
 
-
-describe('Intersection', () => {
+describe('IntersectionRenderer', () => {
   const canvasMock = {
     getContext: function(){
       return {
@@ -23,7 +23,21 @@ describe('Intersection', () => {
       ];
 
       try {
-        let intersection = new Intersection(canvasMock, wrongLights);
+        let intersection = new IntersectionRenderer(canvasMock, wrongLights);
+      } catch (ex) {
+        wasExceptionThrown = true;
+      }
+
+      assert.ok(wasExceptionThrown);
+    });
+
+    it('should throw an exception with the wrong renderer for traffic lights', () => {
+      let wasExceptionThrown = false;
+      const lights = [new TrafficLight(), new TrafficLight(),new TrafficLight(), new TrafficLight()];
+      const wrongRenderer = {}; // wrong object passed
+
+      try {
+        let intersection = new IntersectionRenderer(canvasMock, lights, wrongRenderer);
       } catch (ex) {
         wasExceptionThrown = true;
       }
@@ -37,7 +51,7 @@ describe('Intersection', () => {
       const wrongLights = [new TrafficLight(), new TrafficLight(), new TrafficLight()];
 
       try {
-        let intersection = new Intersection(canvasMock, wrongLights);
+        let intersection = new IntersectionRenderer(canvasMock, wrongLights);
       } catch (ex) {
         wasExceptionThrown = true;
       }
@@ -50,16 +64,21 @@ describe('Intersection', () => {
     it('should call "render" method on all lights', () => {
       let counter = 0;
       let called = [false, false, false, false];
-      TrafficLight.prototype.render = function() {
+      let origRender = TrafficLightRenderer.prototype.render;
+
+      // We mock the function to count the number of times called
+      TrafficLightRenderer.prototype.render = function() {
         called[counter++] = true;
       };
+      let renderer = new TrafficLightRenderer();
 
-      const lights = [new TrafficLight(), new TrafficLight(), new TrafficLight(), new TrafficLight()]
-      const intersection = new Intersection(canvasMock, lights);
+      const lights = [new TrafficLight(), new TrafficLight(), new TrafficLight(), new TrafficLight()];
+      const intersection = new IntersectionRenderer(canvasMock, lights, renderer);
       intersection.render();
       const wereAllLightsCalled = called.every(item => item);
 
       assert.ok(wereAllLightsCalled);
+      TrafficLightRenderer.prototype.render = origRender;
     });
   });
 });

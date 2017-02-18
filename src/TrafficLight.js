@@ -33,6 +33,13 @@ class TrafficLight {
   }
 
   /**
+   * @return {string}
+   */
+  getColor() {
+    return this.currentColor;
+  }
+
+  /**
    * Turn the yellow light on green and sets the timer
    * @private
    */
@@ -50,39 +57,6 @@ class TrafficLight {
   _setOnRed() {
     this.currentColor = TrafficLight.COLORS.RED;
     this.nextLight.setOnGreen();
-  }
-
-  /**
-   * Renders the traffic ligth on a given canvas
-   * @param {integer} coordX
-   * @param {integer} coordY
-   * @param {CanvasRenderingContext2D} context
-   */
-  render(coordX, coordY, context) {
-      context.lineWidth = 2;
-      context.strokeStyle = '#333';
-
-      context.beginPath();
-      context.arc(coordX, coordY, 10, 0,  2 * Math.PI);
-      context.stroke();
-      context.fillStyle = this.currentColor == TrafficLight.COLORS.GREEN ? TrafficLight.COLORS.GREEN : TrafficLight.COLORS.GRAY;
-      context.fill();
-
-      context.beginPath();
-      context.moveTo(coordX, coordY + 25);
-      context.arc(coordX, coordY + 25, 10, 0,  2 * Math.PI);
-      context.stroke();
-      context.fillStyle = this.currentColor == TrafficLight.COLORS.YELLOW ? TrafficLight.COLORS.YELLOW : TrafficLight.COLORS.GRAY;
-      context.fill();
-
-      context.beginPath();
-      context.moveTo(coordX, coordY + 50);
-      context.arc(coordX, coordY + 50, 10, 0,  2 * Math.PI);
-      context.stroke();
-      context.fillStyle = this.currentColor == TrafficLight.COLORS.RED ? TrafficLight.COLORS.RED : TrafficLight.COLORS.GRAY;
-      context.fill();
-
-      context.closePath();
   }
 }
 

@@ -1,15 +1,17 @@
 const TrafficLight = require('./TrafficLight.js');
+const TrafficLightRenderer = require('./TrafficLightRenderer.js');
 
 /**
- * @class Intersection
+ * @class IntersectionRenderer
  */
-class Intersection {
+class IntersectionRenderer {
 
   /**
    * @param {HTMLCanvasElement} canvas
    * @param {array<TrafficLight>} givenLights
+   * * @param {TrafficLightRenderer} renderer
    */
-  constructor(canvas, givenLights) {
+  constructor(canvas, givenLights, renderer) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.lights = [];
@@ -25,6 +27,11 @@ class Intersection {
       this.lights.push(light);
     });
 
+    if (!(renderer instanceof TrafficLightRenderer)) {
+      throw new Error('Invalid argument: it requires an instance of TrafficLightRenderer');
+    }
+
+    this.renderer = renderer.setContext(this.ctx);
     this.positions = [];
     this._initPositions();
   }
@@ -36,7 +43,7 @@ class Intersection {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.lights.forEach((light, index) => {
-      light.render(...this.positions[index], this.ctx);
+      this.renderer.render(light, ...this.positions[index]);
     });
   }
 
@@ -59,4 +66,4 @@ class Intersection {
   }
 }
 
-module.exports = Intersection;
+module.exports = IntersectionRenderer;
