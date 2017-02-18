@@ -2,6 +2,10 @@ const constants = require('./constants.js');
 const TrafficLight = require('./TrafficLight.js');
 
 class TrafficLightRenderer {
+  constructor() {
+    this.isVertical = false;
+    this.isInverted = false;
+  }
 
   /**
    * @param {CanvasRenderingContext2D} context
@@ -14,11 +18,24 @@ class TrafficLightRenderer {
   }
 
   /**
-   * @param {TrafficLight} trafficLight
-   * @param {array} coords [coordX, coordY>
    * @param {boolean} isVertical
    */
-  render(light, coords, isVertical = false) {
+  setVertical(isVertical) {
+    this.isVertical = isVertical;
+  }
+
+  /**
+   * @param {boolean} isInverted
+   */
+  setInverted(isInverted) {
+    this.isInverted = isInverted;
+  }
+
+  /**
+   * @param {TrafficLight} trafficLight
+   * @param {array} coords [coordX, coordY>
+   */
+  render(light, coords) {
     if (
         !(light instanceof TrafficLight) ||
         !(Array.isArray(coords) && coords.length === 2)
@@ -37,10 +54,10 @@ class TrafficLightRenderer {
     this.context.fillStyle = state == constants.STATE.GREEN ? constants.COLORS.GREEN : constants.COLORS.GRAY;
     this.context.fill();
 
-    if (isVertical) {
-      coordX += 25;
+    if (this.isVertical) {
+      coordX += (this.isInverted ? -25 : 25);
     } else {
-      coordY += 25;
+      coordY += (this.isInverted ? -25 : 25);
     }
 
     this.context.beginPath();
@@ -52,13 +69,13 @@ class TrafficLightRenderer {
     if (state == constants.STATE.TURN_LEFT) {
       this.context.fillStyle = 'white';
       this.context.font = '14px arial';
-      this.context.fillText('<<', coordX - 9, coordY + 5);
+      this.context.fillText('L', coordX - 4, coordY + 5);
     }
 
-    if (isVertical) {
-      coordX += 25;
+    if (this.isVertical) {
+      coordX += (this.isInverted ? -25 : 25);
     } else {
-      coordY += 25;
+      coordY += (this.isInverted ? -25 : 25);
     }
 
     this.context.beginPath();
@@ -68,10 +85,10 @@ class TrafficLightRenderer {
     this.context.fillStyle = state == constants.STATE.YELLOW ? constants.COLORS.YELLOW : constants.COLORS.GRAY;
     this.context.fill();
 
-    if (isVertical) {
-      coordX += 25;
+    if (this.isVertical) {
+      coordX += (this.isInverted ? -25 : 25);
     } else {
-      coordY += 25;
+      coordY += (this.isInverted ? -25 : 25);
     }
 
     this.context.beginPath();

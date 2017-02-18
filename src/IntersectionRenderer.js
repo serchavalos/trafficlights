@@ -43,8 +43,9 @@ class IntersectionRenderer {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.lights.forEach((light, index) => {
-      let isVertical = index % 2 == 0; // Every other light will be in vertical
-      this.renderer.render(light, this.positions[index], isVertical);
+      this.renderer.setVertical(index % 2 == 0); // Every other light will be in vertical
+      this.renderer.setInverted(index > 1);
+      this.renderer.render(light, this.positions[index]);
     });
   }
 
@@ -60,9 +61,9 @@ class IntersectionRenderer {
     this.positions = [
       // [coordX, coordY]
       [(width/2) - 30, 120], // north
-      [width - 120, (height/2) - 43],  // east
-      [(width/2) - 30, height - 130], // south
-      [120, (height/2) - 43] // west
+      [width - 110, (height/2) - 43],  // east
+      [(width/2) + 50, height - 130], // south
+      [120, (height/2) + 33] // west
     ];
   }
 }
