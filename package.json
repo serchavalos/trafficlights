@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "prestart": "rm bundle.js",
+    "prestart": "touch bundle.js; rm bundle.js",
     "start": "node scripts/build.js; open index.html",
     "test": "node_modules/.bin/mocha tests",
     "lint": "eslint src test"

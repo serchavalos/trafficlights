@@ -9,7 +9,7 @@ class IntersectionRenderer {
   /**
    * @param {HTMLCanvasElement} canvas
    * @param {array<TrafficLight>} givenLights
-   * * @param {TrafficLightRenderer} renderer
+   * @param {TrafficLightRenderer} renderer
    */
   constructor(canvas, givenLights, renderer) {
     this.canvas = canvas;
